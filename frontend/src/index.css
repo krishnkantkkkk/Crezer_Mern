@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+*{
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar{
+  width: 5px;
+}
+::-webkit-scrollbar-thumb{
+  background-color: #40454e;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover{
+  background-color: #505662;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+@theme{
+  --color-brand-primary : #45ffca;
+  --color-brand-dark : #37d7aa;
+  --color-charcol-primary : #31363f;
+  --color-charcol-darker : #222831;
+  --color-charcol-dark : #272d37;
+  --color-charcol-light : #40454e;
+  --color-orange-primary : #f36d37;
+  --shadow-primary : 2px 2px 5px rgba(0, 0, 0, 0.15);
+  --font-roboto-slab : "Roboto Slab";
+  --font-merienda : Merienda;
+}
