@@ -7,6 +7,7 @@ import Transactions from "../components/Transactions";
 import Fuse from "fuse.js";
 import AddBorrowerForm from "../components/AddBorrowerForm";
 import FloatingPlus from "../components/FloatingPlus";
+import LoadingScreen from "../components/LoadingScreen";
 
 function Dashboard() {
     const { borrowersList } = useContext(UserInfoContext);
@@ -19,6 +20,8 @@ function Dashboard() {
     useEffect(() => {
         setSearchedBorrowersList(borrowersList);
     }, [borrowersList])
+
+    if(!borrowersList) return <LoadingScreen/>
 
     const fuse = new Fuse(
         borrowersList, {
