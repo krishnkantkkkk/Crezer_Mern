@@ -51,12 +51,12 @@ function ModifyForm(props){
         <>
             <div onClick={props.cut} className="absolute top-0 left-0 w-full h-full backdrop-blur-[1px] z-10">
             </div>
-            <div className="flex flex-col w-[350px] h-[420px] bg-charcol-primary border-2 border-charcol-light p-2.5 rounded-xl shadow-primary items-center absolute z-10 top-[calc(50%-210px)] left-[calc(50%-175px)]">
+            <div className="flex flex-col w-[350px] bg-charcol-primary border-2 border-charcol-light p-10 rounded-xl shadow-primary items-center absolute z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                 <div className="absolute top-2 right-2 text-gray-400 hover:text-gray-200 cursor-pointer" onClick={props.cut}><X/></div>
-                <div className="h-1/5 w-full flex justify-center items-center">
-                    <h1 className='uppercase text-white font-bold text-3xl'>Modify</h1>
+                <div className="w-full flex justify-center items-center">
+                    <h1 className='uppercase text-white font-bold text-xl'>Modify</h1>
                 </div>
-                <form className="w-[80%] flex flex-col gap-3 justify-center items-center">
+                <form className="w-full flex flex-col gap-3 justify-center items-center">
                     <div className="w-full h-20 flex flex-col justify-center items-center">
                         <div className="w-full flex justify-between">
                             <p className="text-white">Name</p>
