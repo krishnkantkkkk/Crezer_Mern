@@ -6,6 +6,8 @@ function UserInfo({children}){
     const api = useContext(ApiContext);
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [fetchedBorrowers, setFetchedBorrowers] = useState(false);
+    const [fetchedGroups, setFetchedGroups] = useState(false);
     const [borrowersList, setBorrowersList] = useState([]);
     const [groupList, setGroupList] = useState([]);
     useEffect(()=>{
@@ -26,14 +28,21 @@ function UserInfo({children}){
             .then((response)=>{
                 setBorrowersList(response.data.response.borrowersList.reverse());
             })
+            .finally(()=>{
+                setFetchedBorrowers(true);
+            })
+
             api.get('/users/splits/fetchGroups')
             .then((res)=>{
                 setGroupList(res.data.response.groups.reverse())
             })
+            .finally(()=>{
+                setFetchedGroups(true);
+            })
         }
     }, [user])
     return(
-        <UserInfoContext.Provider value={{user, setUser, loading, borrowersList, setBorrowersList, groupList, setGroupList}}>
+        <UserInfoContext.Provider value={{user, setUser, loading, borrowersList, setBorrowersList, groupList, setGroupList, fetchedBorrowers, fetchedGroups}}>
             {children}
         </UserInfoContext.Provider>
     )

@@ -10,22 +10,30 @@ import { useState } from 'react';
 import { useContext } from 'react';
 import { ApiContext } from '../contexts/AxiosContext';
 import { UserInfoContext } from '../contexts/UserInfo';
+import LoadingScreen from '../components/LoadingScreen';
 function Login(){
     const [formData, setFormData] = useState({username : '', password: ''});
     const api = useContext(ApiContext);
     const navigate = useNavigate();
     const {setUser} = useContext(UserInfoContext);
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e)=>{
         e.preventDefault();
+        setLoading(true);
         api.post('/users/login', formData).then((data)=>{
             setUser(data.data.response.user);
             navigate('/dashboard');
         }).catch((err)=>{
             if(err.status === 400) setError('Invalid Username or Password');
+            else setError("Internal Server Error");
+        }).finally(()=>{
+            setLoading(false);
         })
     }
+
+    if(loading) return <LoadingScreen/>
 
     return(
         <div className="h-[calc(100vh-55px)] flex">
@@ -39,11 +47,11 @@ function Login(){
                     </div>
                     <form method='post' onSubmit={handleSubmit} className="w-[80%] flex flex-col gap-4 justify-center items-center relative">
                         <div className="text-xs text-orange-primary h-0 absolute -top-5 z-10">{error}</div>
-                        <Input placeholder='Username' type='text' name='username' required={true} onChange={(e)=>{setFormData(prev =>({
+                        <Input placeholder='Username' type='text' value={formData.username} name='username' required={true} onChange={(e)=>{setFormData(prev =>({
                             ...prev, 
                             username : e.target.value
                         }))}}/>
-                        <Input placeholder='Password' type='password' required={true} haveEye={true} name='password' onChange={(e)=>{
+                        <Input placeholder='Password' type='password' value={formData.password} required={true} haveEye={true} name='password' onChange={(e)=>{
                             setFormData(prev =>({
                                 ...prev,
                                 password: e.target.value

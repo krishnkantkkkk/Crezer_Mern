@@ -12,6 +12,7 @@ export default function Input(props){
                 autoComplete='off' 
                 type={isPassword ? 'password' : 'text'}
                 name={props.name}
+                value={props.value}
                 placeholder={props.placeholder}  
                 className="p-2 px-2.5 text-sm text-white h-10 w-full bg-charcol-darker rounded outline-none caret-brand-primary placeholder-charcol-lighter placeholder:font-[300] placeholder:text-[13px]"
                 required={props.required}

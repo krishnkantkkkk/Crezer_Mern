@@ -70,28 +70,28 @@ function Register(){
                     </div>
                     <form onSubmit={handleSubmit} className="w-[80%] flex flex-col gap-4 justify-center items-center relative">
                         <div className="w-full">
-                            <Input placeholder='Username' name='username' required={true} onChange={(e)=>{setFormData(prev =>({
+                            <Input placeholder='Username' value={formData.username} name='username' required={true} onChange={(e)=>{setFormData(prev =>({
                                 ...prev, 
                                 username : e.target.value
                             }))}}></Input>
                             <div className="w-full flex justify-end h-0 text-[10px] text-orange-primary">{errorPath === 'username' ? error : ''}</div>
                         </div>
                         <div className="w-full">
-                            <Input placeholder='Name' name='name' required={true} onChange={(e)=>{setFormData(prev =>({
+                            <Input placeholder='Name' value={formData.name} name='name' required={true} onChange={(e)=>{setFormData(prev =>({
                                 ...prev, 
                                 name : e.target.value
                             }))}}></Input>
                             <div className="w-full flex justify-end h-0 text-[10px] text-orange-primary">{errorPath === 'name' ? error : ''}</div>
                         </div>
                         <div className="w-full">    
-                            <Input placeholder='Phone' type='number' name='phone' required={true} onChange={(e)=>{setFormData(prev =>({
+                            <Input placeholder='Phone' type='number' value={formData.phone} name='phone' required={true} onChange={(e)=>{setFormData(prev =>({
                                 ...prev, 
                                 phone : e.target.value
                             }))}}></Input>
                             <div className="w-full flex justify-end h-0 text-[10px] text-orange-primary">{errorPath === 'phone' ? error : ''}</div>
                         </div>
                         <div className="w-full">    
-                            <Input placeholder='Password' name='password' haveEye={true} required={true} onChange={(e)=>{setFormData(prev =>({
+                            <Input placeholder='Password' name='password' value={formData.password} haveEye={true} required={true} onChange={(e)=>{setFormData(prev =>({
                                 ...prev, 
                                 password : e.target.value
                             }))}}></Input>
