@@ -10,7 +10,7 @@ import FloatingPlus from "../components/FloatingPlus";
 import LoadingScreen from "../components/LoadingScreen";
 
 function Dashboard() {
-    const { borrowersList } = useContext(UserInfoContext);
+    const { borrowersList, fetchedBorrowers } = useContext(UserInfoContext);
     const [selectedId, setSelectedId] = useState(null);
     const [selectedName, setSelectedName] = useState(null);
     const [selectedAmount, setSelectedAmount] = useState(null);
@@ -21,7 +21,7 @@ function Dashboard() {
         setSearchedBorrowersList(borrowersList);
     }, [borrowersList])
 
-    if(!borrowersList) return <LoadingScreen/>
+    if(!fetchedBorrowers) return <LoadingScreen/>
 
     const fuse = new Fuse(
         borrowersList, {

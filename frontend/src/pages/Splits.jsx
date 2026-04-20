@@ -5,10 +5,12 @@ import SplitsGroupForm from "../components/SplitsGroupForm";
 import { UserInfoContext } from "../contexts/UserInfo";
 import { useNavigate } from "react-router-dom";
 import FloatingPlus from "../components/FloatingPlus";
+import LoadingScreen from "../components/LoadingScreen";
 function Splits(){
     const [groupFormOpen, setGroupFormOpen] = useState(false);
-    const {groupList} = useContext(UserInfoContext);
+    const {groupList, fetchedGroups} = useContext(UserInfoContext);
     const navigate = useNavigate();
+    if(!fetchedGroups) return <LoadingScreen/>
     return(
         <>
             {groupFormOpen ? <SplitsGroupForm cut={()=>{setGroupFormOpen(false)}}/> : ''}
