@@ -23,8 +23,8 @@ function App() {
             <Route path='/login' element={<AuthProtectedWrapper><Login/></AuthProtectedWrapper>}/>
             <Route path ='/dashboard' element={<BypassProtectWrapper><Dashboard/></BypassProtectWrapper>}/>
             <Route path='/logout' element={<Logout/>}/>
-            <Route path='/splits' element={<Splits/>}/>
-            <Route path='/splits/:groupId' element={<Group/>}/>
+            <Route path='/splits' element={'IN Progress'}/>
+            {/* <Route path='/splits/:groupId' element={<Group/>}/> */}
           </Routes>
       </UserInfo>
     </AxiosContext>
