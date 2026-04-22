@@ -9,7 +9,7 @@ function Logout(){
     const {setUser, setBorrowersList, setGroupList} = useContext(UserInfoContext);
     const navigate = useNavigate();
     useEffect(()=>{
-        api.get('/users/logout')
+        api.post('/users/logout', {})
         .then(()=>{
             setUser(null);
             setBorrowersList([]);
