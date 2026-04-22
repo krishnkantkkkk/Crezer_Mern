@@ -48,7 +48,11 @@ export const loginUser = async (req, res) => {
 }
 
 export const logoutUser = (req, res)=>{
-    res.clearCookie('token').send({message: 'Logout successful'});
+    res.clearCookie('token', {
+        httpOnly: true,
+        secure: true,
+        sameSite: "None"
+    }).send({ message: 'Logout successful' });
 }
 
 export const userProfile = async (req, res)=>{
