@@ -1,15 +1,9 @@
-import dotenv from 'dotenv';
-dotenv.config();
-
 import express from 'express';
 import UserRouter from './routes/UserRouter.js';
 import cookieParser from 'cookie-parser';
 import connectDB from './configuration/db.js';
-
 import cors from 'cors';
-
-
-
+import config from './configuration/config.js';
 connectDB();
 
 const app = express();
@@ -17,7 +11,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors({
-  origin : process.env.FRONTEND_ORIGIN,
+  origin : config.FRONTEND_ORIGIN,
   credentials: true,
 }));
 
