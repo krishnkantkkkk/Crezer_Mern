@@ -15,7 +15,7 @@ export const registerUser = async (req, res) => {
     });
     req.user = {id: newUser._id, username: newUser.username};
     const token = await TokenGenerator({id: newUser._id, username: newUser.username});
-    res.status(201).cookie('token', token, {httpOnly: true, secure:true, sameSite: "None",maxAge: 7 * 24 * 60 * 60 * 1000}).json({response:{ 
+    res.status(201).cookie('token', token, {httpOnly: true, secure:true, sameSite: "None", path: '/', maxAge: 7 * 24 * 60 * 60 * 1000}).json({response:{ 
         message: 'User registered successfully',
         'user':{
             _id : newUser._id,
@@ -37,7 +37,7 @@ export const loginUser = async (req, res) => {
     }
     req.user = {id: user._id, username: user.username};
     const token = await TokenGenerator({id: user._id, username: user.username});
-    res.status(200).cookie('token', token, {httpOnly: true, secure:true, sameSite:"None",maxAge: 7 * 24 * 60 * 60 * 1000}).json({response : {
+    res.status(200).cookie('token', token, {httpOnly: true, secure:true, sameSite:"None", path: '/', maxAge: 7 * 24 * 60 * 60 * 1000}).json({response : {
         message: 'Login successful', 
         user:{
             _id:user._id, 
@@ -51,7 +51,8 @@ export const logoutUser = (req, res)=>{
     res.clearCookie('token', {
         httpOnly: true,
         secure: true,
-        sameSite: "None"
+        sameSite: "None",
+        path: '/'
     }).send({ message: 'Logout successful' });
 }
 
