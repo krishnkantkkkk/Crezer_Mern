@@ -41,7 +41,7 @@ function UserInfo({children}){
                 setFetchedGroups(true);
             })
         }
-    }, [user])
+    }, [isLoggedIn])
     return(
         <UserInfoContext.Provider value={{user, setUser, loading, borrowersList, setBorrowersList, groupList, setGroupList, fetchedBorrowers, fetchedGroups, isLoggedIn, setIsLoggedIn}}>
             {children}
