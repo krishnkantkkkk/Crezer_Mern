@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { ApiContext } from "./AxiosContext";
-export const UserInfoContext = createContext()
+export const UserInfoContext = createContext();
 
 function UserInfo({children}){
     const api = useContext(ApiContext);
@@ -12,21 +12,19 @@ function UserInfo({children}){
     const [groupList, setGroupList] = useState([]);
     const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('loggedIn'));
     useEffect(()=>{
-        api.get('/users/profile')
-        .then((user)=>{
-            setUser(user.data.response.user);
-            setIsLoggedIn(true);
-            localStorage.setItem('loggedIn', true);
-        })
-        .catch(()=>{
-            setUser(null);
-        })
-        .finally(()=>{
-            setLoading(false);
-        })
+        if(isLoggedIn){
+            api.get('/users/profile')
+            .then((user)=>{
+                setUser(user.data.response.user);
+            })
+            .catch(()=>{
+                setUser(null);
+            })
+        }
+        setLoading(false);
     }, [])
     useEffect(()=>{
-        if(user){
+        if(isLoggedIn){
             api.get('/users/borrowers/fetchBorrowers')
             .then((response)=>{
                 setBorrowersList(response.data.response.borrowersList.reverse());
