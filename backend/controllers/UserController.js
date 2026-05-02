@@ -27,7 +27,6 @@ export const registerUser = async (req, res) => {
 
 export const loginUser = async (req, res) => {
     const {username, password} = req.body;
-    console.log(username, password);
     const user = await UserModel.findOne({username});
     if(!user){
         return res.status(400).send({message: 'Invalid Username or Password'});

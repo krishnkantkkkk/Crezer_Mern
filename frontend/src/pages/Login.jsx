@@ -15,7 +15,7 @@ function Login(){
     const [formData, setFormData] = useState({username : '', password: ''});
     const api = useContext(ApiContext);
     const navigate = useNavigate();
-    const {setUser} = useContext(UserInfoContext);
+    const {setUser, setIsLoggedIn} = useContext(UserInfoContext);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
@@ -24,6 +24,8 @@ function Login(){
         setLoading(true);
         api.post('/users/login', formData).then((data)=>{
             setUser(data.data.response.user);
+            localStorage.setItem('loggedIn', true);
+            setIsLoggedIn(true);
             navigate('/dashboard');
         }).catch((err)=>{
             if(err.status === 400) setError('Invalid Username or Password');
@@ -49,7 +51,7 @@ function Login(){
                         <div className="text-xs text-orange-primary h-0 absolute -top-5 z-10">{error}</div>
                         <Input placeholder='Username' type='text' value={formData.username} name='username' required={true} onChange={(e)=>{setFormData(prev =>({
                             ...prev, 
-                            username : e.target.value
+                            username : e.target.value.trim()
                         }))}}/>
                         <Input placeholder='Password' type='password' value={formData.password} required={true} haveEye={true} name='password' onChange={(e)=>{
                             setFormData(prev =>({

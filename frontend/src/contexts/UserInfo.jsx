@@ -10,10 +10,13 @@ function UserInfo({children}){
     const [fetchedGroups, setFetchedGroups] = useState(false);
     const [borrowersList, setBorrowersList] = useState([]);
     const [groupList, setGroupList] = useState([]);
+    const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('loggedIn'));
     useEffect(()=>{
         api.get('/users/profile')
         .then((user)=>{
             setUser(user.data.response.user);
+            setIsLoggedIn(true);
+            localStorage.setItem('loggedIn', true);
         })
         .catch(()=>{
             setUser(null);
@@ -42,7 +45,7 @@ function UserInfo({children}){
         }
     }, [user])
     return(
-        <UserInfoContext.Provider value={{user, setUser, loading, borrowersList, setBorrowersList, groupList, setGroupList, fetchedBorrowers, fetchedGroups}}>
+        <UserInfoContext.Provider value={{user, setUser, loading, borrowersList, setBorrowersList, groupList, setGroupList, fetchedBorrowers, fetchedGroups, isLoggedIn, setIsLoggedIn}}>
             {children}
         </UserInfoContext.Provider>
     )

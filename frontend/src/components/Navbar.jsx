@@ -10,7 +10,7 @@ function Navbar(){
     const location = useLocation();
     const isHome = location.pathname === '/';
     const isAuthPage = location.pathname === '/login' || location.pathname === '/register';
-    const {user} = useContext(UserInfoContext);
+    const {isLoggedIn} = useContext(UserInfoContext);
 
     const [hanmburgerOpened, setHamburgerOpened] = useState(false);
 
@@ -54,8 +54,8 @@ function Navbar(){
             </div>
 
             <div className="flex items-center gap-4">
-                {isAuthPage || user ? '' : <Button text='Get Started' redirect='/register'/>}
-                {user && (
+                {isAuthPage || isLoggedIn ? '' : <Button text='Get Started' redirect='/login'/>}
+                {isLoggedIn && (
                     <div ref={menuRef} className="transition duration-300 ease-in-out relative">
                         {hanmburgerOpened ? (
                             <HamburgerMenu onClick={handleHamburger}/> 

@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 function Logout(){
     const api = useContext(ApiContext);
-    const {setUser, setBorrowersList, setGroupList} = useContext(UserInfoContext);
+    const {setUser, setBorrowersList, setGroupList, setIsLoggedIn} = useContext(UserInfoContext);
     const navigate = useNavigate();
     useEffect(()=>{
         api.post('/users/logout', {})
@@ -14,7 +14,9 @@ function Logout(){
             setUser(null);
             setBorrowersList([]);
             setGroupList([]);
-            navigate('/', {replace : true});
+            setIsLoggedIn(false);
+            localStorage.removeItem('loggedIn');
+            navigate('/login', {replace : true});
         })
     }, []);
     return null;

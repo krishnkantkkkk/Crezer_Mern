@@ -10,7 +10,7 @@ function Register(){
 
     const [formData, setFormData] = useState({username : '', name : '', phone : '', password : ''});
     const api = useContext(ApiContext);
-    const {setUser} = useContext(UserInfoContext);
+    const {setUser, setIsLoggedIn} = useContext(UserInfoContext);
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -50,6 +50,8 @@ function Register(){
         api.post('/users/register', formData)
         .then((data)=>{
             setUser(data);
+            setIsLoggedIn(true);
+            localStorage.setItem('loggedIn', true);
             navigate('/dashboard');
         }).catch(()=>{
             setIsLoading(false);
@@ -72,14 +74,14 @@ function Register(){
                         <div className="w-full">
                             <Input placeholder='Username' value={formData.username} name='username' required={true} onChange={(e)=>{setFormData(prev =>({
                                 ...prev, 
-                                username : e.target.value
+                                username : e.target.value.trim()
                             }))}}></Input>
                             <div className="w-full flex justify-end h-0 text-[10px] text-orange-primary">{errorPath === 'username' ? error : ''}</div>
                         </div>
                         <div className="w-full">
                             <Input placeholder='Name' value={formData.name} name='name' required={true} onChange={(e)=>{setFormData(prev =>({
                                 ...prev, 
-                                name : e.target.value
+                                name : e.target.value.trim()
                             }))}}></Input>
                             <div className="w-full flex justify-end h-0 text-[10px] text-orange-primary">{errorPath === 'name' ? error : ''}</div>
                         </div>
