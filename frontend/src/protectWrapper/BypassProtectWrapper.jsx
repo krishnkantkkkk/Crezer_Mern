@@ -5,11 +5,13 @@ import LoadingScreen from "../components/LoadingScreen";
 import Logout from "../pages/Logout";
 
 function BypassProtectWrapper({children}){
-    const {user, loading} = useContext(UserInfoContext);
+    const {user, loading, setIsLoggedIn} = useContext(UserInfoContext);
     const navigate = useNavigate();
     useEffect(()=>{
         if(!user){
-            navigate('/logout', {replace : true});
+            setIsLoggedIn(false);
+            localStorage.removeItem('loggedIn');
+            navigate('/login', {replace:true});
         }
     }, [user])
     if(loading || !user) return <LoadingScreen/>;
