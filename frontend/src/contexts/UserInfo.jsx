@@ -18,13 +18,14 @@ function UserInfo({children}){
                 setUser(user.data.response.user);
             })
             .catch(()=>{
-                setUser(null);
+                localStorage.removeItem('loggedIn');
+                setIsLoggedIn(false);
             })
         }
         setLoading(false);
     }, [])
     useEffect(()=>{
-        if(isLoggedIn){
+        if(user){
             api.get('/users/borrowers/fetchBorrowers')
             .then((response)=>{
                 setBorrowersList(response.data.response.borrowersList.reverse());
@@ -41,7 +42,7 @@ function UserInfo({children}){
                 setFetchedGroups(true);
             })
         }
-    }, [isLoggedIn])
+    }, [user])
     return(
         <UserInfoContext.Provider value={{user, setUser, loading, borrowersList, setBorrowersList, groupList, setGroupList, fetchedBorrowers, fetchedGroups, isLoggedIn, setIsLoggedIn}}>
             {children}

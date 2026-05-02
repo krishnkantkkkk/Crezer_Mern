@@ -4,14 +4,14 @@ import { UserInfoContext } from "../contexts/UserInfo";
 import LoadingScreen from "../components/LoadingScreen";
 
 function AuthProtectedWrapper({children}){
-    const {user, loading} = useContext(UserInfoContext);
+    const {isLoggedIn, loading} = useContext(UserInfoContext);
     const navigate = useNavigate();
     useEffect(()=>{
-        if(user){
+        if(isLoggedIn){
             navigate('/dashboard', {replace : true});
         }
-    },[user])
-    if(loading || user) return <LoadingScreen/>;
+    },[isLoggedIn])
+    if(loading) return <LoadingScreen/>;
     return(
        children
     )
