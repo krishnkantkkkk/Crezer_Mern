@@ -3,6 +3,7 @@ import { ApiContext } from "../contexts/AxiosContext";
 import { UserInfoContext } from "../contexts/UserInfo";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import Login from "./Login";
 
 function Logout(){
     const api = useContext(ApiContext);
@@ -19,7 +20,7 @@ function Logout(){
             navigate('/login', {replace : true});
         })
     }, []);
-    return null;
+    return <Login/>;
 }
 
 export default Logout;

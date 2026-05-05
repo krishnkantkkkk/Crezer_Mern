@@ -9,9 +9,11 @@ function ModifyForm(props){
     const api = useContext(ApiContext);
     const {setBorrowersList} = useContext(UserInfoContext);
     const [error, setError] = useState('');
-    const onBorrowed = (e)=>{
+    const [blockClick, setBlockClick] = useState(false);
+    const handleModification = (e, transactionType) => {
         e.preventDefault();
-        formData.transactionType = 'Borrowed';
+        setBlockClick(true);
+        formData.transactionType = transactionType;
         api.post('/users/borrowers/makeTransaction', formData)
         .then((res)=>{
             const id = res.data.response.updatedBorrowerDetail._id;
@@ -25,26 +27,13 @@ function ModifyForm(props){
             );
             props.cut()
         })
-    }
-    const onPaid = (e)=>{
-        e.preventDefault();
-        formData.transactionType = 'Paid';
-        api.post('/users/borrowers/makeTransaction', formData)
-        .then((res)=>{
-            const id = res.data.response.updatedBorrowerDetail._id;
-            const newAmount = res.data.response.updatedBorrowerDetail.amount;
-            setBorrowersList(prev =>
-                prev.map(borrower =>
-                    borrower._id === id
-                        ? { ...borrower, amount: newAmount }
-                        : borrower
-                )
-            );
-            props.cut()
-        }).catch((err)=>{
+        .catch((err)=>{
             if(err.status === 400){
                 setError('Not a valid amount to pay');
             }
+        })
+        .finally(()=>{
+            setBlockClick(false);
         })
     }
     return(
@@ -81,8 +70,12 @@ function ModifyForm(props){
                         }))
                     }}/>
                     <div className="flex w-full justify-between mt-3">
-                        <button className='bg-brand-primary w-25 py-2 rounded text-sm cursor-pointer font-normal hover:bg-brand-dark' onClick={onPaid}>Paid</button>
-                        <button className='bg-brand-primary w-25 py-2 rounded text-sm cursor-pointer font-normal hover:bg-brand-dark' onClick={onBorrowed}>Borrowed</button>
+                        <button disabled={blockClick} className='bg-brand-primary w-25 py-2 rounded text-sm cursor-pointer font-normal hover:bg-brand-dark' onClick={(e)=>{
+                            handleModification(e, 'Paid');
+                        }}>Paid</button>
+                        <button disabled={blockClick} className='bg-brand-primary w-25 py-2 rounded text-sm cursor-pointer font-normal hover:bg-brand-dark' onClick={(e)=>{
+                            handleModification(e, 'Borrowed');
+                        }}>Borrowed</button>
                     </div>
                 </form>
             </div>
