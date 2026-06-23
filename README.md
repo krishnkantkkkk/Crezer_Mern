@@ -1,4 +1,4 @@
-# Crezer MERN
+# CREzER
 
 A full-stack MERN application for managing borrowers, tracking transactions, and sharing expenses through group splits.
 
