@@ -8,7 +8,8 @@ function BorrowerCard(props){
             </div>
             <div className="h-full w-full flex flex-col justify-between items-center">
                 <p className="text-brand-primary uppercase font-bold text-xl">{props.name}</p>
-                <p className="text-white font-bold text-[1.5rem] tracking-wider">₹ {props.amount}</p>
+                <p className={`text-${props.amount >= 0 ? 'white' : 'orange-primary'} font-bold text-[1.5rem] tracking-wider`}>₹ {props.amount}</p>
+                {props.amount < 0 ? <p className="text-white text-[10px] absolute top-[35%]">You owe {props.name} ₹ {-props.amount}</p> : ''}
                 <div onClick={props.onClick}><Button text='Modify'/></div>
                 <div className="h-1"></div>
             </div>
