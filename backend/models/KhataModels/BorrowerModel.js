@@ -18,11 +18,6 @@ const borrowerSchema = new mongoose.Schema({
     amount: {
         type: Number,
         required: true,
-        validate : {
-            validator : (x) =>{
-                return x >= 0;
-            }
-        }
     },
 });
 

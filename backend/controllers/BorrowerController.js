@@ -97,19 +97,13 @@ export const makeTransaction = async (req, res)=>{
         }
         else if(transactionType === 'Paid'){
             const user = await BorrowerModel.findOne({_id : borrower});
-            if(user.amount - amount >= 0){
-                await BorrowerModel.findOneAndUpdate({_id : borrower}, {$inc: {amount : -amount}});
-                const updatedBorrowerDetail = await BorrowerModel.findOne({_id : borrower});
-                createTransaction(req.user.id, borrower, amount, transactionType, memo);
-                return res.status(201).json({response : {
-                    message : "Transaction made successfully",
-                    updatedBorrowerDetail
-                }});
-            }else{
-                return res.status(400).json({response : {
-                    message : "Final Amount cannot be negative."
-                }})
-            }
+            await BorrowerModel.findOneAndUpdate({_id : borrower}, {$inc: {amount : -amount}});
+            const updatedBorrowerDetail = await BorrowerModel.findOne({_id : borrower});
+            createTransaction(req.user.id, borrower, amount, transactionType, memo);
+            return res.status(201).json({response : {
+                message : "Transaction made successfully",
+                updatedBorrowerDetail
+            }});
         }
         else {
             return res.json({response : {
