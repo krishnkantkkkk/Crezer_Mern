@@ -14,7 +14,7 @@ function TransactionBlock(props){
         if(min > 30) hour++;
         hour = (hour+5)%24;
         min = (min + 30)%60;
-        rightTime = `${hour}:${min}`;
+        rightTime = `${hour<10?'0':''}${hour}:${min < 10 ? '0' : ''}${min}`;
         dateTime = rightDate + ' ~ ' + rightTime;
     }
     return(
